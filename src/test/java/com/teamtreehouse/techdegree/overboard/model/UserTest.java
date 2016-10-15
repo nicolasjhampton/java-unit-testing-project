@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
-    // TODO: Create a new Test Fixture for the User model in a separate but same package test directory structure.
+    // DONE: Create a new Test Fixture for the User model in a separate but same package test directory structure.
 
 
     private Board board;
@@ -36,7 +36,7 @@ public class UserTest {
     }
 
 
-    // TODO : Write a test to ensure that the questioner’s reputation goes up by 5 points if their question is upvoted.
+    // DONE : Write a test to ensure that the questioner’s reputation goes up by 5 points if their question is upvoted.
 
     @Test
     public void upVotingQuestionIncreasesReputationFivePoints() throws Exception {
@@ -52,7 +52,7 @@ public class UserTest {
     }
 
 
-    // TODO: Write a test to assert that the answerer’s reputation goes up by 10 points if their answer is upvoted.
+    // DONE: Write a test to assert that the answerer’s reputation goes up by 10 points if their answer is upvoted.
 
     @Test
     public void answeringQuestionIncreasesReputationFivePoints() throws Exception {
@@ -68,7 +68,7 @@ public class UserTest {
     }
 
 
-    // TODO: Write a test that proves that having an answer accepted gives the answerer a 15 point reputation boost
+    // DONE: Write a test that proves that having an answer accepted gives the answerer a 15 point reputation boost
 
     @Test
     public void acceptedAnswerGivesFifteenReputationPoints() throws Exception {
@@ -84,7 +84,7 @@ public class UserTest {
     }
 
 
-    // TODO: Using a test, ensure that voting either up or down is not allowed on questions or answers by the original author, you know to avoid gaming the system. Ensure the proper exceptions are being thrown.
+    // DONE: Using a test, ensure that voting either up or down is not allowed on questions or answers by the original author, you know to avoid gaming the system. Ensure the proper exceptions are being thrown.
 
     // Assert
     @Test(expected = VotingException.class)
@@ -127,7 +127,7 @@ public class UserTest {
         user1.downVote(question);
     }
 
-    // TODO: Write a test to make sure that only the original questioner can accept an answer. Ensure the intended messaging is being sent to back to the caller.
+    // DONE: Write a test to make sure that only the original questioner can accept an answer. Ensure the intended messaging is being sent to back to the caller.
 
     @Test
     public void throwsExceptionIfAnswerAcceptedBySomeoneOtherThanAsker() throws Exception {
@@ -140,5 +140,35 @@ public class UserTest {
 
         // Act
         user2.acceptAnswer(answer);
+    }
+
+    // DONE: Reviewing the User.getReputation method may expose some code that is not requested to be tested in the Meets Project instructions. Write the missing test.
+
+    @Test
+    public void userStartsWithZeroReputation() throws Exception {
+
+        // Assert
+        assertEquals(0, user1.getReputation());
+
+    }
+
+    @Test
+    public void downVoteDecreasesAnswerersReputationByOnePoint() throws Exception {
+
+        // Act
+        user1.downVote(answer);
+
+        // Assert
+        assertEquals(-1, user2.getReputation());
+    }
+
+    @Test
+    public void downVotingQuestionHasNoEffectOnQuestionAskersReputation() throws Exception {
+
+        // Act
+        user2.downVote(question);
+
+        // Assert
+        assertEquals(0, user1.getReputation());
     }
 }
